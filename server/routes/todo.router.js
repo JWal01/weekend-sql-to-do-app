@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
 // POST
 router.post('/', (req, res) => {
   let newTask = req.body;
-  let sqlText = `INSERT INTO tasks (task, complete)
+  let sqlText = `INSERT INTO "tasks" (task, complete)
   VALUES ($1,$2)`
 
   pool.query(sqlText, [newTask.task, newTask.complete])
