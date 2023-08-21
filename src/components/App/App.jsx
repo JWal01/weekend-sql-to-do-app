@@ -4,8 +4,10 @@ import './App.css';
 
 function toDoListSection () {
   let [toDoListTask, setToDoListTask] = useState('');
-  let [toDoListArray, setToDoListArray]=useState([]);
+  const [toDoListArray, setToDoListArray]=useState([]);
   
+  
+
   const fetchToDoList = () => {
     axios.get('/todo/')
     .then((response) => {
@@ -20,7 +22,7 @@ function toDoListSection () {
     const addToDoList = (evt) => {
       console.log(`The task is ${toDoListTask} `);
       // POST ROUTE TO 
-      axios.post(`/todo/`, {task: toDoListTask})
+      axios.post(`/todo/`, {task: toDoListTask, complete: false})
       .then( (response) => {
         console.log(response);
       })
@@ -36,6 +38,30 @@ function toDoListSection () {
       fetchToDoList();
     }, []);
 
+    const toggleComplete = (id) => {
+      console.log('running route');
+      axios.put(`/todo/toggle/${id}`)
+      .then((response) =>{
+        console.log(response)
+        fetchToDoList();
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    }
+
+    const deleteTask = (id) => {
+      axios.delete(`/todo/${id}`)
+      .then((response) =>{
+        console.log(response)
+        fetchToDoList();
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    }
+  
+
 
 
   
@@ -50,8 +76,13 @@ function toDoListSection () {
       </form>
 
       {toDoListArray.map(task =>
-      (<li key={task.task}>
+      (<li key={task.task} className={task.complete ? 'complete' : 'standard'}   >
         {task.task} {task.complete}
+        <button onClick={() => deleteTask(task.id)}>Delete</button>
+       
+        {JSON.stringify(task.complete)}
+
+        <button onClick={() => toggleComplete(task.id)}  >Complete</button>
       </li>
       ))}
 

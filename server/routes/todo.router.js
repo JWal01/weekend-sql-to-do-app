@@ -34,32 +34,49 @@ router.post('/', (req, res) => {
       })
 })
 
+router.put('/todo/:id', (req, res) => {
+    let {id} = req.params;
 
-// PUT
-// router.put('/:id', (req,res) =>{
-//     let id =  req.params.id 
-//     let queryText = `UPDATE "tasks" SET "rank" = +1 WHERE "id" = $1;`;
-//     pool.query(queryText, [id])
-//     .then((result) => {
-//         res.sendStatus(201);
-//     })
-//     .catch((err) => {
-//         console.log(`Error making query ${queryText}`, err);
-//         res.sendStatus(500)
-//     })
-// })
-// DELETE
-// router.delete('/:id', (req,res) => {
-//     let id = req.params.id;
-//     let queryText = `DELETE FROM "tasks" WHERE "id" = $1;`;
-//     pool.query(queryText, [id])
-//     .then((result) => {
-//         res.sendStatus(200);
-//     })
-//     .catch((err) => {
-//         console.log(`Error making query ${queryText}`, err);
-//         res.sendStatus(500)
-//     })
-// })
+    const sqlText = `UPDATE "task" SET "complete" = NOT "complete" WHERE "id" = $1;`;
+    pool.query(sqlText , [id])
+    .then((result) => {
+    console.log(`got stuff from database` , result);
+    res.sendStatus(201);
+    })
+    .catch((error) => {
+        console.log(`Error making query` , error);
+        res.sendStatus(500)
+    })
+})
+
+router.delete('/:id' , (req,res) => {
+    let { id } = req.params
+    const sqlText = `DELETE FROM "tasks" WHERE "id" = $1;`;
+    pool.query(sqlText, [id])
+    .then((response) => {
+        console.log(`got stuff from database` , response);
+        res.sendStatus(201);
+    })
+    .catch((error) => {
+        console.log(`Error making query` , error);
+        res.sendStatus(500);
+    })
+})
+
+router.put('/toggle/:id', (req, res) => {
+    let {id} = req.params;
+
+    const sqlText = `UPDATE "tasks" SET "complete" = NOT "complete" WHERE "id" = $1;`;
+    pool.query(sqlText , [id])
+    .then((result) => {
+    console.log(`got stuff from database` , result);
+    res.sendStatus(201);
+    })
+    .catch((error) => {
+        console.log(`Error making query` , error);
+        res.sendStatus(500)
+    })
+})
+
 
 module.exports = router;

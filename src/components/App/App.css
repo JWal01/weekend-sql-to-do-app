@@ -37,3 +37,11 @@
   border-radius: 15px;
   outline: none;
 }
+
+.complete{
+  color: green;
+}
+
+.standard{
+  color: gray;
+}
