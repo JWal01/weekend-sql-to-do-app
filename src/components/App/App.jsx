@@ -67,7 +67,7 @@ function toDoListSection () {
   
   
   return (
-    <div>
+    <div className='tasks-list' >
       <h1>TO DO APP</h1>
       <form onSubmit={addToDoList}>
         <input value={toDoListTask} className='input' placeholder='Add Task' onChange={e => setToDoListTask(e.target.value)} />

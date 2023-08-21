@@ -38,6 +38,11 @@
   outline: none;
 }
 
+.add-button:hover{
+  background-color: #ccc;
+  cursor: pointer;
+}
+
 .complete{
   color: green;
 }
@@ -45,3 +50,5 @@
 .standard{
   color: gray;
 }
+
+
