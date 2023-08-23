@@ -76,13 +76,15 @@ function toDoListSection () {
       </form>
 
       {toDoListArray.map(task =>
-      (<li key={task.task} className={task.complete ? 'complete' : 'standard'}   >
+      (<li key={task.id} className={`task ${task.complete ? 'complete' : 'standard'}`}>
         {task.task} {task.complete}
+        <div className='buttons'>
         <button onClick={() => deleteTask(task.id)}>Delete</button>
        
         {JSON.stringify(task.complete)}
 
         <button onClick={() => toggleComplete(task.id)}  >Complete</button>
+        </div>
       </li>
       ))}
 
