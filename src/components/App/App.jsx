@@ -1,6 +1,41 @@
 import React, {useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
+import '@fontsource/roboto';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import ButtonGroup from '@mui/material/ButtonGroup';
+
+import Paper from '@mui/material/Paper';
+import { styled } from '@mui/material/styles';
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+}));
+
+// import List from '@mui/material/List';
+// import ListItem from '@mui/material/ListItem';
+// import ListItemText from '@mui/material/ListItemText';
+// import Divider from '@mui/material/Divider';
+
+// const style = {
+//   width: '100%',
+//   maxWidth: 360,
+//   bgcolor: 'background.paper',
+// };
+
+
+
+
+
+
+
+
+
+
 
 function toDoListSection () {
   let [toDoListTask, setToDoListTask] = useState('');
@@ -70,28 +105,45 @@ function toDoListSection () {
     <div className='tasks-list' >
       <h1>TO DO APP</h1>
       <form onSubmit={addToDoList}>
-        <input value={toDoListTask} className='input' placeholder='Add Task' onChange={e => setToDoListTask(e.target.value)} />
-        <button className='addButton' type="submit">Add</button>
+        {/* <input value={toDoListTask} className='input' placeholder='Add Task' onChange={e => setToDoListTask(e.target.value)} /> */}
+        <TextField color="primary" value={toDoListTask} className='input'  onChange={e => setToDoListTask(e.target.value)} id="filled-basic" label="Add Task" variant="filled" />
+        <br></br>
+        <Button color='primary' className='addButton' type="submit" variant="outlined">Add</Button>
+
+        
+  
 
       </form>
 
       {toDoListArray.map(task =>
-      (<li key={task.id} className={`task ${task.complete ? 'complete' : 'standard'}`}>
+      (
+      <li key={task.id} className={`task ${task.complete ? 'complete' : 'standard'}`}>
         {task.task} {task.complete}
-        <div className='buttons'>
-        <button onClick={() => deleteTask(task.id)}>Delete</button>
+        {/* <div className='buttons'> */}
+
+    
+      
+ 
+    
        
-        {JSON.stringify(task.complete)}
+    <ButtonGroup
+    disableElevation
+    variant="contained"
+    aria-label="Disabled elevation buttons"
+    >
+    <Button onClick={() => toggleComplete(task.id)}  >Complete</Button>
+    <Button onClick={() => deleteTask(task.id)} >Delete</Button>
+    
+    </ButtonGroup>
 
-        <button onClick={() => toggleComplete(task.id)}  >Complete</button>
-        </div>
-      </li>
-      ))}
+          {/* </div> */}
+        </li>
+        ))}
 
-     
-    </div>
-  );
+      
+      </div>
+    );
 
-}
+  }
 
 export default toDoListSection;
